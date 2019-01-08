@@ -93,8 +93,6 @@ func main() {
 	// ... and set some initial values in registers
 	registers[r1] = 0x1
 
-	fmt.Printf("Memory: %X\r\n", memory)
-
 	// Execution procedure:
 	// 1. Load instruction from memory at the address held by PC
 	// 2. Increment the PC register (resulting in new instruction address; this may be subsequently changed by our resulting instruction execution)
@@ -117,7 +115,9 @@ func main() {
 		// Decode
 		op, dst, srcA, flag, srcB := decode(instruction)
 
-		fmt.Printf("Instruction: %b\r\nOperation: %d\r\nOperands: %d, %d, %d, %d\r\n", instruction, op, dst, srcA, flag, srcB)
+		if op != 0x0 { // Dont log no-ops
+			fmt.Printf("Instruction: %b\r\nOperation: %d\r\nOperands: %d, %d, %d, %d\r\n", instruction, op, dst, srcA, flag, srcB)
+		}
 
 		// Execute
 		switch op {
