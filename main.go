@@ -157,36 +157,16 @@ func main() {
 	fmt.Printf("Registers: %X\r\n", registers)
 }
 
-func createVM() {
-	// Stub
-}
-
-func destroyVM() {
-	// Stub
-}
-
 func decode(r uint16) (uint16, uint16, uint16, uint16, uint16) {
 	return r >> 12, (r >> 9) & 0x7, (r >> 6) & 0x7, (r >> 5) & 0x1, r & 0x1F
 }
 
-func read(r uint16) uint16 {
-	return memory[r]
+func read(address uint16) uint16 {
+	return memory[address]
 }
 
-func write() {
-	// Stub
-}
-
-func loadOS() {
-	// Stub
-}
-
-func loadFile() {
-	// Stub
-}
-
-func loadData() {
-	// Stub
+func write(address uint16, value uint16) {
+	memory[address] = value
 }
 
 func signExtend(x uint16, count uint) uint16 { // This takes imm values and extends them to uint16s for instruction compatibility
@@ -195,18 +175,6 @@ func signExtend(x uint16, count uint) uint16 { // This takes imm values and exte
 	}
 
 	return x
-}
-
-func signFlag() {
-	// Stub
-}
-
-func setCC() {
-	// Stub
-}
-
-func perform() {
-	// Stub
 }
 
 func swap(x uint16) uint16 {
@@ -221,8 +189,4 @@ func updateFlag(f uint16) {
 	} else {
 		registers[rCD] = (uint16)(flPOS)
 	}
-}
-
-func run() {
-	// Stub
 }
