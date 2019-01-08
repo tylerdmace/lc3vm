@@ -42,7 +42,7 @@ const (
 type OpCode int
 
 const ( // Order is important: BR = 0000, ADD = 0001, LD = 0010, ...
-	opBR  OpCode = iota // Break / Halt
+	opBR  OpCode = iota // Branch
 	opADD               // Add
 	opLD                // Load
 	opST                // Store
@@ -57,7 +57,7 @@ const ( // Order is important: BR = 0000, ADD = 0001, LD = 0010, ...
 	opJMP               // Jump
 	opRES               // Reserve (Unimplemented)
 	opLEA               // Load effective address
-	opTRA               // Trap
+	opTRA               // Trap (Clock resets and halt operations, for example)
 )
 
 // RegisterMM is a makeshift enum
@@ -107,6 +107,10 @@ func main() {
 	for {
 		registers[rPC] = registers[rPC] + 1
 
+		if registers[rPC] >= (uint16)(len(memory)) {
+			break
+		}
+
 		// Fetch
 		instruction := read(registers[rPC])
 
@@ -117,8 +121,7 @@ func main() {
 
 		// Execute
 		switch op {
-		case 0x0: // Break (Halt)
-			running = false
+		case 0x0: // Branch
 		case 0x1: // Add
 			// f(a,b) == a+b
 			if flag == 0x1 { // We know that the srcB is a 5-bit unsigned int used as immediate scalar
