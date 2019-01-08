@@ -166,12 +166,6 @@ func destroyVM() {
 }
 
 func decode(r uint16) (uint16, uint16, uint16, uint16, uint16) {
-	// Take in our instruction which is a 16-bit number and parse out the different pieces using bitwise AND (&)
-	// Bits 15:12 are our opcode
-	// Bits 11:9 are our first operand (destination register)
-	// Bits 8:6 are our second operand (first source register)
-	// Bit 5 is our third operand (immediate scalar flag; if this is set to 1, we will be utilizing an immediate scalar value as our second source rather than a second register)
-	// Bits 4:0 are our fourth operand (whether this is a imm value or a register is determined by the imm flag)
 	return r >> 12, (r >> 9) & 0x7, (r >> 6) & 0x7, (r >> 5) & 0x1, r & 0x1F
 }
 
