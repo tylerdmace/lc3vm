@@ -5,10 +5,7 @@ import (
 	"math"
 )
 
-// Sandbox VM - Tyler Mace <tyler@madhive.com>
-//
-// This virtual machine is written as a literate program and is
-// intended to be extremely easy to understand and reason about.
+// lc3vm - Tyler Mace <tyler@madhive.com>
 //
 // Notes:
 //  - Simulates the LC-3 educational computer platform
