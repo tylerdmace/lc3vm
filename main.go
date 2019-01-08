@@ -69,7 +69,7 @@ const (
 )
 
 const (
-	pcStart = 0x3000 // OS space < 3000
+	pcStart = 0x3000 // OS space < 3000 -- everything else can be used as program memory
 )
 
 // Memory
@@ -169,8 +169,8 @@ func write(address uint16, value uint16) {
 	memory[address] = value
 }
 
-func signExtend(x uint16, count uint) uint16 { // This takes imm values and extends them to uint16s for instruction compatibility
-	if ((x >> (count - 1)) & 1) == 1 {
+func signExtend(x uint16, count uint) uint16 {
+	if ((x >> (count - 1)) & 0x1) == 0x1 {
 		x = (0xFFFF << count)
 	}
 
